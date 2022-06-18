@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nsg_biolab_clone/constants/constants.dart';
 
-import '../widgets/widget.dart';
+import '../../widgets/widget.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);

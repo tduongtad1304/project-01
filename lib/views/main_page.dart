@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:nsg_biolab_clone/constants/constants.dart';
 import 'package:nsg_biolab_clone/views/views.dart';
@@ -10,7 +12,24 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int index = 0;
+  int currentIndex = 0;
+  PageController _pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(
+      initialPage: currentIndex,
+      keepPage: true,
+      viewportFraction: 1,
+    );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   final screens = [
     const MyHomePage(),
@@ -23,12 +42,24 @@ class _MainPageState extends State<MainPage> {
     return SafeArea(
       top: false,
       child: Scaffold(
-        body: screens[index],
+        body: PageView(
+          scrollDirection: Axis.horizontal,
+          controller: _pageController,
+          onPageChanged: (index) {
+            log('change to $index');
+            setState(() => currentIndex = index);
+          },
+          children: [
+            for (int i = 0; i < screens.length; i++) ...[
+              screens[i],
+            ],
+          ],
+        ),
         floatingActionButton: SizedBox(
           width: 62,
           height: 62,
           child: FloatingActionButton(
-            backgroundColor: kPrimaryButton,
+            backgroundColor: kPrimaryButtons,
             onPressed: () {},
             child: const Icon(
               Icons.add,
@@ -50,16 +81,19 @@ class _MainPageState extends State<MainPage> {
         labelTextStyle: MaterialStateProperty.all(
           kTextPrimary.copyWith(
             fontSize: 12,
-            color: kNavigationColor[index],
+            color: kNavigationColor[currentIndex],
           ),
         ),
       ),
       child: NavigationBar(
-        animationDuration: const Duration(milliseconds: 700),
-        selectedIndex: index,
+        animationDuration: const Duration(milliseconds: 300),
+        selectedIndex: currentIndex,
         onDestinationSelected: (int index) {
           setState(() {
-            this.index = index;
+            currentIndex = index;
+            _pageController.animateToPage(index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOutCubicEmphasized);
           });
         },
         destinations: _bottomTabBar(),
@@ -70,63 +104,65 @@ class _MainPageState extends State<MainPage> {
 
   List<Widget> _bottomTabBar() {
     return [
-      Stack(
-        children: [
-          index == 0
-              ? Container(
-                  width: MediaQuery.of(context).size.width / 3,
-                  height: 4,
-                  color: kNavigationColor[0],
-                )
-              : Container(),
-          NavigationDestination(
-            icon: const Icon(Icons.home_outlined),
-            label: 'Home',
-            selectedIcon: Icon(
-              Icons.home_outlined,
-              color: kNavigationColor[index],
-            ),
-          ),
-        ],
-      ),
-      Stack(
-        children: [
-          index == 1
-              ? Container(
-                  width: MediaQuery.of(context).size.width / 3,
-                  height: 4,
-                  color: kNavigationColor[1],
-                )
-              : Container(),
-          NavigationDestination(
-            icon: const Icon(Icons.favorite_border_outlined),
-            label: 'Favourites',
-            selectedIcon: Icon(
-              Icons.favorite_border_outlined,
-              color: kNavigationColor[index],
-            ),
-          ),
-        ],
-      ),
-      Stack(
-        children: [
-          index == 2
-              ? Container(
-                  width: MediaQuery.of(context).size.width / 3,
-                  height: 4,
-                  color: kNavigationColor[2],
-                )
-              : Container(),
-          NavigationDestination(
-            icon: const Icon(Icons.person_outline_outlined),
-            label: 'Profile',
-            selectedIcon: Icon(
-              Icons.person_outline_outlined,
-              color: kNavigationColor[index],
-            ),
-          ),
-        ],
+      CustomBottomTabBar(
+          context: context,
+          currentIndex: currentIndex,
+          pageIndex: 0,
+          label: 'Home',
+          icon: Icons.home_outlined),
+      CustomBottomTabBar(
+          context: context,
+          currentIndex: currentIndex,
+          pageIndex: 1,
+          label: 'Favourites',
+          icon: Icons.favorite_border_outlined),
+      CustomBottomTabBar(
+        context: context,
+        currentIndex: currentIndex,
+        pageIndex: 2,
+        label: 'Profile',
+        icon: Icons.person_outline,
       ),
     ];
+  }
+}
+
+class CustomBottomTabBar extends StatelessWidget {
+  const CustomBottomTabBar({
+    Key? key,
+    required this.context,
+    required this.currentIndex,
+    required this.pageIndex,
+    required this.label,
+    required this.icon,
+  }) : super(key: key);
+
+  final BuildContext context;
+  final int currentIndex;
+  final int pageIndex;
+  final String label;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        currentIndex == pageIndex
+            ? Container(
+                width: MediaQuery.of(context).size.width / 3,
+                height: 4,
+                color: kNavigationColor[pageIndex],
+              )
+            : Container(),
+        NavigationDestination(
+          icon: Icon(icon),
+          label: label,
+          selectedIcon: Icon(
+            icon,
+            color: kNavigationColor[currentIndex],
+          ),
+        ),
+      ],
+    );
   }
 }

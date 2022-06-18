@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../constants/constants.dart';
-import '../widgets/widget.dart';
+import '../../constants/constants.dart';
+import '../../widgets/widget.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -67,7 +67,7 @@ class Profile extends StatelessWidget {
                   'Edit Photo',
                   style: kTextPrimary.copyWith(
                     fontSize: 14,
-                    color: kPrimaryButton,
+                    color: kPrimaryButtons,
                   ),
                 ),
               ),
