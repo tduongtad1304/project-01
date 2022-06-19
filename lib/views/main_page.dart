@@ -1,8 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:nsg_biolab_clone/constants/constants.dart';
 import 'package:nsg_biolab_clone/views/views.dart';
+import 'package:nsg_biolab_clone/widgets/create_route.dart';
+
+import 'new_bookings/new_bookings.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
   PageController _pageController = PageController();
+  bool isProfilePage = false;
 
   @override
   void initState() {
@@ -39,34 +41,41 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (currentIndex == 2) {
+      isProfilePage = true;
+    } else {
+      isProfilePage = false;
+    }
     return SafeArea(
       top: false,
       child: Scaffold(
         body: PageView(
-          scrollDirection: Axis.horizontal,
+          physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
-          onPageChanged: (index) {
-            log('change to $index');
-            setState(() => currentIndex = index);
-          },
           children: [
-            for (int i = 0; i < screens.length; i++) ...[
-              screens[i],
-            ],
+            for (int i = 0; i < screens.length; i++) screens[i],
           ],
         ),
-        floatingActionButton: SizedBox(
-          width: 62,
-          height: 62,
-          child: FloatingActionButton(
-            backgroundColor: kPrimaryButtons,
-            onPressed: () {},
-            child: const Icon(
-              Icons.add,
-              size: 30,
-            ),
-          ),
-        ),
+        floatingActionButton: !isProfilePage
+            ? SizedBox(
+                width: 62,
+                height: 62,
+                child: FloatingActionButton(
+                  backgroundColor: kPrimaryButtons,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      createRoute(
+                        const NewBookings(),
+                      ),
+                    );
+                  },
+                  child: const Icon(
+                    Icons.add,
+                    size: 30,
+                  ),
+                ),
+              )
+            : Container(),
         bottomNavigationBar: _buildBottomNavigationBar(),
       ),
     );
@@ -91,7 +100,7 @@ class _MainPageState extends State<MainPage> {
         onDestinationSelected: (int index) {
           setState(() {
             currentIndex = index;
-            _pageController.animateToPage(index,
+            _pageController.animateToPage(currentIndex,
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOutCubicEmphasized);
           });
@@ -114,7 +123,7 @@ class _MainPageState extends State<MainPage> {
           context: context,
           currentIndex: currentIndex,
           pageIndex: 1,
-          label: 'Favourites',
+          label: 'My Favourites',
           icon: Icons.favorite_border_outlined),
       CustomBottomTabBar(
         context: context,

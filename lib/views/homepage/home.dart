@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nsg_biolab_clone/constants/constants.dart';
+import 'package:nsg_biolab_clone/models/bookings.dart';
 
 import '../../widgets/widget.dart';
 
@@ -13,6 +14,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late Equipments equipments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
