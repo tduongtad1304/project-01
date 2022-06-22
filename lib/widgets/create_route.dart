@@ -1,4 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        CurveTween,
+        Curves,
+        Offset,
+        PageRouteBuilder,
+        Route,
+        SlideTransition,
+        Tween,
+        Widget;
 
 Route createRoute(Widget widget) {
   return PageRouteBuilder(

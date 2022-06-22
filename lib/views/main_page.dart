@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nsg_biolab_clone/constants/constants.dart';
 import 'package:nsg_biolab_clone/views/views.dart';
-import 'package:nsg_biolab_clone/widgets/create_route.dart';
-
-import 'new_bookings/new_bookings.dart';
+import 'package:nsg_biolab_clone/widgets/widgets.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
