@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nsg_biolab_clone/constants/constants.dart';
-import 'package:nsg_biolab_clone/views/views.dart';
-import 'package:nsg_biolab_clone/widgets/widgets.dart';
+
+import '../widgets/tab_navigator.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -12,68 +12,60 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
-  PageController _pageController = PageController();
+  // PageController _pageController = PageController();
   bool isProfilePage = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(
-      initialPage: currentIndex,
-      keepPage: true,
-      viewportFraction: 1,
-    );
+  String _currentPage = "Home";
+  List<String> pageKeys = ["Home", "My Favourites", "Profile"];
+  final Map<String, GlobalKey<NavigatorState>> _navigatorKeys = {
+    "Home": GlobalKey<NavigatorState>(),
+    "My Favourites": GlobalKey<NavigatorState>(),
+    "Profile": GlobalKey<NavigatorState>(),
+  };
+
+  void _selectTab(String tabItem, int index) {
+    if (tabItem == _currentPage) {
+      _navigatorKeys[tabItem]!.currentState!.popUntil((route) => route.isFirst);
+    } else {
+      setState(() {
+        _currentPage = pageKeys[index];
+        currentIndex = index;
+      });
+    }
   }
 
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _pageController = PageController(
+  //     initialPage: currentIndex,
+  //     keepPage: true,
+  //     viewportFraction: 1,
+  //   );
+  // }
 
-  final screens = [
-    const MyHomePage(),
-    const MyFavourite(),
-    const Profile(),
-  ];
+  // @override
+  // void dispose() {
+  //   _pageController.dispose();
+  //   super.dispose();
+  // }
+
+  // final screens = [
+  //   const MyHomePage(),
+  //   const MyFavourite(),
+  //   const Profile(),
+  // ];
 
   @override
   Widget build(BuildContext context) {
-    if (currentIndex == 2) {
-      isProfilePage = true;
-    } else {
-      isProfilePage = false;
-    }
     return SafeArea(
       top: false,
       child: Scaffold(
-        body: PageView(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: _pageController,
-          children: [
-            for (int i = 0; i < screens.length; i++) screens[i],
-          ],
-        ),
-        floatingActionButton: !isProfilePage
-            ? SizedBox(
-                width: 62,
-                height: 62,
-                child: FloatingActionButton(
-                  backgroundColor: kPrimaryButtons,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      createRoute(
-                        const NewBookings(),
-                      ),
-                    );
-                  },
-                  child: const Icon(
-                    Icons.add,
-                    size: 30,
-                  ),
-                ),
-              )
-            : Container(),
+        body: Stack(children: <Widget>[
+          _buildOffstageNavigator("Home"),
+          _buildOffstageNavigator("My Favourites"),
+          _buildOffstageNavigator("Profile"),
+        ]),
         bottomNavigationBar: _buildBottomNavigationBar(),
       ),
     );
@@ -97,14 +89,24 @@ class _MainPageState extends State<MainPage> {
         selectedIndex: currentIndex,
         onDestinationSelected: (int index) {
           setState(() {
-            currentIndex = index;
-            _pageController.animateToPage(currentIndex,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOutCubicEmphasized);
+            _selectTab(pageKeys[index], index);
+            // _pageController.animateToPage(currentIndex,
+            //     duration: const Duration(milliseconds: 300),
+            //     curve: Curves.easeInOutCubicEmphasized);
           });
         },
         destinations: _bottomTabBar(),
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+      ),
+    );
+  }
+
+  Widget _buildOffstageNavigator(String tabItem) {
+    return Offstage(
+      offstage: _currentPage != tabItem,
+      child: TabNavigator(
+        navigatorKey: _navigatorKeys[tabItem]!,
+        tabItem: tabItem,
       ),
     );
   }
