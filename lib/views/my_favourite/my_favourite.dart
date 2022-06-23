@@ -48,8 +48,8 @@ class _MyFavouriteState extends State<MyFavourite>
             ),
           ),
           body: const TabBarView(children: [
-            Equipments(),
-            MeetingRoom(),
+            MyFavouriteEquipments(),
+            MyFavouriteMeetingRoom(),
           ]),
           floatingActionButton: SizedBox(
             width: 62,

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nsg_biolab_clone/constants/constants.dart';
 
-class Equipments extends StatelessWidget {
-  const Equipments({Key? key}) : super(key: key);
+class MyFavouriteEquipments extends StatelessWidget {
+  const MyFavouriteEquipments({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

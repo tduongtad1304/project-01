@@ -97,4 +97,24 @@ final List<MeetingRooms> meetingRooms = [
     meetingRoomLocation: 'Location 2',
     meetingRoomDateTime: 'DateTime 2',
   ),
+  const MeetingRooms(
+    meetingRoomName: 'Meeting Room 3',
+    meetingRoomLocation: 'Location 3',
+    meetingRoomDateTime: 'DateTime 3',
+  ),
+  const MeetingRooms(
+    meetingRoomName: 'Meeting Room 4',
+    meetingRoomLocation: 'Location 4',
+    meetingRoomDateTime: 'DateTime 4',
+  ),
+  const MeetingRooms(
+    meetingRoomName: 'Meeting Room 5',
+    meetingRoomLocation: 'Location 5',
+    meetingRoomDateTime: 'DateTime 5',
+  ),
+  const MeetingRooms(
+    meetingRoomName: 'Meeting Room 6',
+    meetingRoomLocation: 'Location 6',
+    meetingRoomDateTime: 'DateTime 6',
+  ),
 ];

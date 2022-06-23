@@ -13,7 +13,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
   // PageController _pageController = PageController();
-  bool isProfilePage = false;
 
   String _currentPage = "Home";
   List<String> pageKeys = ["Home", "My Favourites", "Profile"];

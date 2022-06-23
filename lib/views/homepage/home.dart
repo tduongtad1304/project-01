@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nsg_biolab_clone/constants/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../cubits/cubits.dart';
 import '../../widgets/widgets.dart';
 import '../views.dart';
 
@@ -15,7 +17,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with AutomaticKeepAliveClientMixin<MyHomePage> {
-  late Equipments equipments;
+  late MyFavouriteEquipments equipments;
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -84,6 +86,13 @@ class _MyHomePageState extends State<MyHomePage>
                     ),
                   ],
                 ),
+                const SizedBox(
+                  height: 17,
+                ),
+                Text(
+                  context.watch<CounterCubit>().state.counterValue.toString(),
+                  style: kTextPrimary.copyWith(fontSize: 20),
+                ),
               ],
             )
           ],
@@ -94,7 +103,8 @@ class _MyHomePageState extends State<MyHomePage>
           child: FloatingActionButton(
             backgroundColor: kPrimaryButtons,
             onPressed: () {
-              Navigator.of(context).push(
+              Navigator.push(
+                context,
                 createRoute(
                   const NewBookings(),
                 ),

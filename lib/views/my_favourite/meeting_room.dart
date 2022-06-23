@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../constants/constants.dart';
 
-class MeetingRoom extends StatelessWidget {
-  const MeetingRoom({Key? key}) : super(key: key);
+class MyFavouriteMeetingRoom extends StatelessWidget {
+  const MyFavouriteMeetingRoom({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
