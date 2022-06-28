@@ -57,9 +57,18 @@ class EquipmentsCard extends StatefulWidget {
 }
 
 class _EquipmentsCardState extends State<EquipmentsCard> {
-  bool isFavourited = false;
   @override
   Widget build(BuildContext context) {
+    bool isFavourited = context
+        .watch<BookingsCubit>()
+        .state
+        .equipments[context
+            .watch<BookingsCubit>()
+            .state
+            .equipments
+            .indexOf(widget.equipments)]
+        .isFavorite;
+
     return Container(
       padding:
           const EdgeInsets.only(left: 17, right: 23, top: 18.0, bottom: 16.0),
@@ -119,7 +128,11 @@ class _EquipmentsCardState extends State<EquipmentsCard> {
           isFavourited ? Icons.favorite : Icons.favorite_border,
           color: kPrimaryButtons,
         ),
-        onPressed: () {},
+        onPressed: () {
+          context.read<BookingsCubit>().toggleFavorite(
+                widget.equipments.id,
+              );
+        },
       ),
     );
   }

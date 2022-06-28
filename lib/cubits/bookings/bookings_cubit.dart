@@ -7,25 +7,25 @@ part 'bookings_state.dart';
 
 class BookingsCubit extends Cubit<BookingsState> {
   BookingsCubit() : super(BookingsState.init());
-  void loadDefaultEquipments() {
-    emit(state.copyWith(status: BookingsStatus.loading));
-    final equipments = [
-      Equipments(
-          equipmentName: 'Computer',
-          equipmentId: 'CPT007',
-          equipmentLocation: 'Vietnam',
-          equipmentDateTime: '2022'),
-      Equipments(
-          equipmentName: 'Laser',
-          equipmentId: 'LS001',
-          equipmentLocation: 'Vietnam',
-          equipmentDateTime: '2020'),
-    ];
-    emit(state.copyWith(
-      status: BookingsStatus.loaded,
-      equipments: equipments,
-    ));
-  }
+  // void loadDefaultEquipments() {
+  //   emit(state.copyWith(status: BookingsStatus.loading));
+  //   final equipments = [
+  //     Equipments(
+  //         equipmentName: 'Computer',
+  //         equipmentId: 'CPT007',
+  //         equipmentLocation: 'Vietnam',
+  //         equipmentDateTime: '2022'),
+  //     Equipments(
+  //         equipmentName: 'Laser',
+  //         equipmentId: 'LS001',
+  //         equipmentLocation: 'Vietnam',
+  //         equipmentDateTime: '2020'),
+  //   ];
+  //   emit(state.copyWith(
+  //     status: BookingsStatus.loaded,
+  //     equipments: equipments,
+  //   ));
+  // }
 
   void createBookings(String bookingsId, String bookingsName,
       String bookingsLocation, String bookingsDateTime) {
@@ -54,6 +54,9 @@ class BookingsCubit extends Cubit<BookingsState> {
   }
 
   void toggleFavorite(String id) {
+    emit(state.copyWith(
+      isFavourite: !state.isFavourite,
+    ));
     final int index =
         state.equipments.indexWhere((equipment) => equipment.id == id);
     if (index != -1) {

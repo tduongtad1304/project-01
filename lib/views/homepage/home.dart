@@ -17,7 +17,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with AutomaticKeepAliveClientMixin<MyHomePage> {
-  late MyFavouriteEquipments equipments;
   @override
   Widget build(BuildContext context) {
     super.build(context);
