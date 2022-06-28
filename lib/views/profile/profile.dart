@@ -31,22 +31,20 @@ class Profile extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          CustomTriangle(
-            rotate: 180,
-            offset: const Offset(1, -1),
-            angle: 90,
-            a: 277,
-            b: 120,
-            color: const Color.fromARGB(220, 251, 235, 240),
-          ),
-          CustomTriangle(
-            rotate: 90,
-            offset: const Offset(-1, -1),
-            angle: 90,
-            a: 173,
-            b: 277,
-            color: const Color.fromARGB(210, 229, 248, 242),
-          ),
+          const CustomTriangle(
+              rotate: 180,
+              offset: Offset(1, -1),
+              angle: 90,
+              a: 277,
+              b: 120,
+              color: Color.fromARGB(220, 251, 235, 240)),
+          const CustomTriangle(
+              rotate: 90,
+              offset: Offset(-1, -1),
+              angle: 90,
+              a: 173,
+              b: 277,
+              color: Color.fromARGB(210, 229, 248, 242)),
           Column(
             children: [
               const Padding(

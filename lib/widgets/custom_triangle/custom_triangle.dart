@@ -8,30 +8,30 @@ import 'draw_triangle.dart';
 
 class CustomTriangle extends StatefulWidget {
   //Length of triangle's side a
-  double a;
+  final double a;
 
   //Length of triangle's side b
-  double b;
+  final double b;
 
   //Angle between side a and side b
-  double angle;
+  final double angle;
 
   //Triangle's inner color
-  Color color;
+  final Color color;
 
   //Triangle's side color. Transparent by default.
-  Color sideColor;
+  final Color sideColor;
 
   //Triangle's side width. 0 by default.
-  double sideWidth;
+  final double sideWidth;
 
   //Triangle's rotation in degrees, from 0 to 360. 0 by default (No rotation so a is horizonal to x axis).
-  double rotate;
+  final double rotate;
 
   //The alignment point from which a and b are drawn (-1<x<1,-1<y<1); (0,0) by default (Scaffold's center).
-  Offset offset;
+  final Offset offset;
 
-  CustomTriangle(
+  const CustomTriangle(
       {Key? key,
       required this.angle,
       required this.a,

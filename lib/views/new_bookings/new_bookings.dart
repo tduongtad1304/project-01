@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:nsg_biolab_clone/constants/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nsg_biolab_clone/cubits/cubits.dart';
+import 'package:nsg_biolab_clone/models/bookings.dart';
 import 'package:nsg_biolab_clone/views/views.dart';
 
 class NewBookings extends StatefulWidget {
@@ -12,11 +13,22 @@ class NewBookings extends StatefulWidget {
   State<NewBookings> createState() => _NewBookingsState();
 }
 
+Equipments? equipments;
 bool? isEquipment;
 late TabController tabController;
+List<String> bookingsInfo = bookingsInfo;
+// late String bookingsId = bookingsId;
+// late String bookingsName = bookingsName;
+// late String bookingsLocation = bookingsLocation;
+// late String bookingsDateTime = bookingsDateTime;
 
 class _NewBookingsState extends State<NewBookings>
     with TickerProviderStateMixin {
+  List<String> bookingsInformation = [];
+  // late String bookingsIdState;
+  // late String bookingsNameState;
+  // late String bookingsLocationState;
+  // late String bookingsDateTimeState;
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
@@ -81,10 +93,30 @@ class _NewBookingsState extends State<NewBookings>
           ],
         ),
       ),
-      body: TabBarView(controller: tabController, children: const [
-        NewBookingEquipments(),
-        NewBookingMeetingRoom(),
+      body: TabBarView(controller: tabController, children: [
+        IndexedStack(children: const [NewBookingEquipments()]),
+        IndexedStack(children: const [
+          NewBookingMeetingRoom(),
+        ]),
       ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          bookingsInformation = await Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const BookingsCreate()));
+
+          setState(() {
+            bookingsInfo = bookingsInformation;
+          });
+          if (bookingsInfo.isEmpty) {
+            return;
+          } else {
+            context.read<BookingsCubit>().createBookings(bookingsInfo[0],
+                bookingsInfo[1], bookingsInfo[2], bookingsInfo[3]);
+          }
+        },
+        child: const Icon(Icons.new_label),
+        backgroundColor: kPrimaryButtons,
+      ),
     );
   }
 }

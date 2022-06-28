@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../constants/constants.dart';
+import '../../cubits/cubits.dart';
 import '../../models/bookings.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewBookingMeetingRoom extends StatefulWidget {
   const NewBookingMeetingRoom({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class NewBookingMeetingRoom extends StatefulWidget {
 class _NewBookingMeetingRoomState extends State<NewBookingMeetingRoom> {
   @override
   Widget build(BuildContext context) {
+    final meetingRooms = context.watch<BookingsCubit>().state.meetingRooms;
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(left: 28.0, right: 20.0),
@@ -63,11 +65,10 @@ class MeetingRoomsCard extends StatefulWidget {
   State<MeetingRoomsCard> createState() => _MeetingRoomsCardState();
 }
 
-bool isFavourite = false;
-
 class _MeetingRoomsCardState extends State<MeetingRoomsCard> {
   @override
   Widget build(BuildContext context) {
+    bool isFavourite = false;
     return Container(
       padding:
           const EdgeInsets.only(left: 17, right: 23, top: 20, bottom: 18.7),
@@ -107,20 +108,21 @@ class _MeetingRoomsCardState extends State<MeetingRoomsCard> {
               ),
             ],
           ),
-          Align(
-            alignment: const Alignment(1, -3),
-            child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    isFavourite = !isFavourite;
-                  });
-                },
-                icon: Icon(
-                  isFavourite ? Icons.favorite : Icons.favorite_border,
-                  color: kPrimaryButtons,
-                )),
-          ),
+          _buildFavouriteButton(isFavourite),
         ],
+      ),
+    );
+  }
+
+  Widget _buildFavouriteButton(bool isFavourited) {
+    return Align(
+      alignment: const Alignment(1, -3),
+      child: IconButton(
+        icon: Icon(
+          isFavourited ? Icons.favorite : Icons.favorite_border,
+          color: kPrimaryButtons,
+        ),
+        onPressed: () {},
       ),
     );
   }

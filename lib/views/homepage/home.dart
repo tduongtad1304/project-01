@@ -35,21 +35,21 @@ class _MyHomePageState extends State<MyHomePage>
         ),
         body: Stack(
           children: [
-            CustomTriangle(
+            const CustomTriangle(
               rotate: 180,
-              offset: const Offset(1, -1),
+              offset: Offset(1, -1),
               angle: 90,
               a: 277,
               b: 167,
-              color: const Color.fromARGB(220, 251, 235, 240),
+              color: Color.fromARGB(220, 251, 235, 240),
             ),
-            CustomTriangle(
+            const CustomTriangle(
               rotate: 90,
-              offset: const Offset(-1, -1),
+              offset: Offset(-1, -1),
               angle: 90,
               a: 241,
               b: 277,
-              color: const Color.fromARGB(210, 229, 248, 242),
+              color: Color.fromARGB(210, 229, 248, 242),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
