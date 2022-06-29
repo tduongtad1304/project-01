@@ -16,7 +16,7 @@ class NewBookings extends StatefulWidget {
 Equipments? equipments;
 bool? isEquipment;
 late TabController tabController;
-List<String> bookingsInfo = bookingsInfo;
+late List<String> bookingsInfo;
 // late String bookingsId = bookingsId;
 // late String bookingsName = bookingsName;
 // late String bookingsLocation = bookingsLocation;
@@ -24,7 +24,6 @@ List<String> bookingsInfo = bookingsInfo;
 
 class _NewBookingsState extends State<NewBookings>
     with TickerProviderStateMixin {
-  List<String> bookingsInformation = [];
   // late String bookingsIdState;
   // late String bookingsNameState;
   // late String bookingsLocationState;
@@ -101,12 +100,9 @@ class _NewBookingsState extends State<NewBookings>
       ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          bookingsInformation = await Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const BookingsCreate()));
+          bookingsInfo = await Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const CreateBookings()));
 
-          setState(() {
-            bookingsInfo = bookingsInformation;
-          });
           if (bookingsInfo.isEmpty) {
             return;
           } else {

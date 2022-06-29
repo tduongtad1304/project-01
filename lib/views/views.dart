@@ -6,4 +6,5 @@ export 'profile/profile.dart';
 export 'new_bookings/new_bookings.dart';
 export 'new_bookings/equipments.dart';
 export 'new_bookings/meeting_room.dart';
-export 'bookings_create/bookings_create.dart';
+// export 'bookings_create/bookings_create.dart';
+export 'bookings_create/create_bookings.dart';
