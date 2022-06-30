@@ -19,8 +19,7 @@ class ValidatorBloc extends Bloc<ValidatorEvent, ValidatorState> {
     on<ExitEvent>(_onExitEvent);
   }
 
-  FutureOr<void> _onEidChangeEvent(
-      EidChangeEvent event, Emitter<ValidatorState> emit) {
+  FutureOr<void> _onEidChangeEvent(EidChangeEvent event, Emitter<ValidatorState> emit) {
     final eidInput = EidInput.dirty(value: event.eid);
 
     emit(
@@ -33,8 +32,7 @@ class ValidatorBloc extends Bloc<ValidatorEvent, ValidatorState> {
     );
   }
 
-  FutureOr<void> _onNameChangeEvent(
-      NameChangeEvent event, Emitter<ValidatorState> emit) {
+  FutureOr<void> _onNameChangeEvent(NameChangeEvent event, Emitter<ValidatorState> emit) {
     final nameInput = NameInput.dirty(value: event.name);
 
     emit(
@@ -47,8 +45,7 @@ class ValidatorBloc extends Bloc<ValidatorEvent, ValidatorState> {
     );
   }
 
-  FutureOr<void> _onLocationChangeEvent(
-      LocationChangeEvent event, Emitter<ValidatorState> emit) {
+  FutureOr<void> _onLocationChangeEvent(LocationChangeEvent event, Emitter<ValidatorState> emit) {
     final locationInput = LocationInput.dirty(value: event.location);
 
     emit(
@@ -61,8 +58,7 @@ class ValidatorBloc extends Bloc<ValidatorEvent, ValidatorState> {
     );
   }
 
-  FutureOr<void> _onDateTimeChangeEvent(
-      DateTimeChangeEvent event, Emitter<ValidatorState> emit) {
+  FutureOr<void> _onDateTimeChangeEvent(DateTimeChangeEvent event, Emitter<ValidatorState> emit) {
     final dateTimeInput = DateTimeInput.dirty(value: event.dateTime);
 
     emit(
@@ -75,8 +71,7 @@ class ValidatorBloc extends Bloc<ValidatorEvent, ValidatorState> {
     );
   }
 
-  FutureOr<void> _onSubmitEvent(
-      SubmitEvent event, Emitter<ValidatorState> emit) async {
+  FutureOr<void> _onSubmitEvent(SubmitEvent event, Emitter<ValidatorState> emit) async {
     if (state.formzStatus.isValidated) {
       emit(state.copyWith(formzStatus: FormzStatus.submissionInProgress));
       await Future.delayed(const Duration(milliseconds: 700));
@@ -95,11 +90,6 @@ class ValidatorBloc extends Bloc<ValidatorEvent, ValidatorState> {
     const formzStatus = FormzStatus.pure;
 
     emit(state.copyWith(
-      eidInput: eidInput,
-      nameInput: nameInput,
-      locationInput: locationInput,
-      dateTimeInput: dateTimeInput,
-      formzStatus: formzStatus,
-    ));
+        eidInput: eidInput, nameInput: nameInput, locationInput: locationInput, dateTimeInput: dateTimeInput, formzStatus: formzStatus));
   }
 }

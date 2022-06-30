@@ -29,8 +29,7 @@ class _BookingsCreateState extends State<BookingsCreate> {
     await Future.delayed(const Duration(milliseconds: 1000));
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      bookingInfo.addAll(
-          [bookingsId!, bookingsName!, bookingsLocation!, bookingsDateTime!]);
+      bookingInfo.addAll([bookingsId!, bookingsName!, bookingsLocation!, bookingsDateTime!]);
 
       log(bookingInfo.toList().toString());
       Navigator.of(context).pop(bookingInfo);
@@ -42,10 +41,7 @@ class _BookingsCreateState extends State<BookingsCreate> {
   }
 
   void _exit() {
-    if (bookingsId == null ||
-        bookingsName == null ||
-        bookingsLocation == null ||
-        bookingsDateTime == null) {
+    if (bookingsId == null || bookingsName == null || bookingsLocation == null || bookingsDateTime == null) {
       Navigator.of(context).pop(bookingInfo);
     }
   }
@@ -167,9 +163,7 @@ class _BookingsCreateState extends State<BookingsCreate> {
                       //     .read<BookingsCubit>()
                       //     .createBookings(bookingsId!, 'abc', 'abc', '2022-12-12');
                     },
-                    icon: isValidating == false
-                        ? const Icon(Icons.search)
-                        : Container(),
+                    icon: isValidating == false ? const Icon(Icons.search) : Container(),
                     label: isValidating == false
                         ? const Text(
                             'Submit',
@@ -222,8 +216,7 @@ class CustomTextFormField extends StatelessWidget {
           hintText: hintText,
           prefixIcon: Icon(icon),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          enabledBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         ),
         validator: validator,
         onSaved: onSaved,

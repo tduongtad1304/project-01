@@ -24,16 +24,11 @@ class BookingsState extends Equatable {
     required this.isFavourite,
   });
 
-  factory BookingsState.init() => const BookingsState(
-      status: BookingsStatus.initial,
-      equipments: [],
-      meetingRooms: [],
-      error: CustomError(errMsg: ''),
-      isFavourite: false);
+  factory BookingsState.init() =>
+      const BookingsState(status: BookingsStatus.initial, equipments: [], meetingRooms: [], error: CustomError(errMsg: ''), isFavourite: false);
 
   @override
-  List<Object?> get props =>
-      [status, equipments, meetingRooms, error, isFavourite];
+  List<Object?> get props => [status, equipments, meetingRooms, error, isFavourite];
 
   @override
   bool get stringify => true;
@@ -72,10 +67,8 @@ class BookingsState extends Equatable {
   factory BookingsState.fromMap(Map<String, dynamic> map) {
     return BookingsState(
       status: BookingsStatus.values[map['status']],
-      equipments: List<Equipments>.from(
-          map['equipments']?.map((x) => Equipments.fromMap(x)) ?? []),
-      meetingRooms: List<MeetingRooms>.from(
-          map['meetingRooms']?.map((x) => MeetingRooms.fromMap(x)) ?? []),
+      equipments: List<Equipments>.from(map['equipments']?.map((x) => Equipments.fromMap(x)) ?? []),
+      meetingRooms: List<MeetingRooms>.from(map['meetingRooms']?.map((x) => MeetingRooms.fromMap(x)) ?? []),
       error: CustomError.fromMap(map['error']),
       isFavourite: map['isFavourite'],
     );
@@ -83,6 +76,5 @@ class BookingsState extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory BookingsState.fromJson(String source) =>
-      BookingsState.fromMap(json.decode(source));
+  factory BookingsState.fromJson(String source) => BookingsState.fromMap(json.decode(source));
 }

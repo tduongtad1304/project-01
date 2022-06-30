@@ -24,14 +24,7 @@ class Equipments implements Bookings {
   }) : id = id ?? uuid.v4();
 
   @override
-  List<Object> get props => [
-        id,
-        equipmentName,
-        equipmentId,
-        equipmentLocation,
-        equipmentDateTime,
-        isFavorite
-      ];
+  List<Object> get props => [id, equipmentName, equipmentId, equipmentLocation, equipmentDateTime, isFavorite];
 
   @override
   bool? get stringify => true;
@@ -98,13 +91,7 @@ class MeetingRooms implements Bookings {
   }) : id = id ?? uuid.v4();
 
   @override
-  List<Object> get props => [
-        id,
-        meetingRoomName,
-        meetingRoomLocation,
-        meetingRoomDateTime,
-        isFavorite,
-      ];
+  List<Object> get props => [id, meetingRoomName, meetingRoomLocation, meetingRoomDateTime, isFavorite];
 
   @override
   bool? get stringify => true;

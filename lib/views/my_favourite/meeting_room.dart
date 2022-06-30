@@ -12,31 +12,18 @@ class MyFavouriteMeetingRoom extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            'You have no favourite Meeting Room',
-            style: kTitlePrimary,
-          ),
+          const Text('You have no favourite Meeting Room', style: kTitlePrimary),
           const SizedBox(height: 17),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Click the',
-                style: kTextPrimary.copyWith(fontSize: 15),
-              ),
+              Text('Click the', style: kTextPrimary.copyWith(fontSize: 15)),
+              const SizedBox(width: 12),
+              SvgPicture.asset('assets/images/coolicon-heart.svg'),
               const SizedBox(
                 width: 12,
               ),
-              SvgPicture.asset(
-                'assets/images/coolicon-heart.svg',
-              ),
-              const SizedBox(
-                width: 12,
-              ),
-              Text(
-                'to save to My Favourites',
-                style: kTextPrimary.copyWith(fontSize: 15),
-              ),
+              Text('to save to My Favourites', style: kTextPrimary.copyWith(fontSize: 15)),
             ],
           )
         ],

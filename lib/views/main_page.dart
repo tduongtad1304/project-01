@@ -12,7 +12,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
-  // PageController _pageController = PageController();
 
   String _currentPage = "Home";
   List<String> pageKeys = ["Home", "My Favourites", "Profile"];
@@ -32,28 +31,6 @@ class _MainPageState extends State<MainPage> {
       });
     }
   }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _pageController = PageController(
-  //     initialPage: currentIndex,
-  //     keepPage: true,
-  //     viewportFraction: 1,
-  //   );
-  // }
-
-  // @override
-  // void dispose() {
-  //   _pageController.dispose();
-  //   super.dispose();
-  // }
-
-  // final screens = [
-  //   const MyHomePage(),
-  //   const MyFavourite(),
-  //   const Profile(),
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -76,12 +53,7 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: const Color.fromARGB(20, 121, 107, 107),
         height: 66,
         indicatorColor: Colors.transparent,
-        labelTextStyle: MaterialStateProperty.all(
-          kTextPrimary.copyWith(
-            fontSize: 12,
-            color: kNavigationColor[currentIndex],
-          ),
-        ),
+        labelTextStyle: MaterialStateProperty.all(kTextPrimary.copyWith(fontSize: 12, color: kNavigationColor[currentIndex])),
       ),
       child: NavigationBar(
         animationDuration: const Duration(milliseconds: 300),
@@ -103,47 +75,23 @@ class _MainPageState extends State<MainPage> {
   Widget _buildOffstageNavigator(String tabItem) {
     return Offstage(
       offstage: _currentPage != tabItem,
-      child: TabNavigator(
-        navigatorKey: _navigatorKeys[tabItem]!,
-        tabItem: tabItem,
-      ),
+      child: TabNavigator(navigatorKey: _navigatorKeys[tabItem]!, tabItem: tabItem),
     );
   }
 
   List<Widget> _bottomTabBar() {
     return [
-      CustomBottomTabBar(
-          context: context,
-          currentIndex: currentIndex,
-          pageIndex: 0,
-          label: 'Home',
-          icon: Icons.home_outlined),
-      CustomBottomTabBar(
-          context: context,
-          currentIndex: currentIndex,
-          pageIndex: 1,
-          label: 'My Favourites',
-          icon: Icons.favorite_border_outlined),
-      CustomBottomTabBar(
-        context: context,
-        currentIndex: currentIndex,
-        pageIndex: 2,
-        label: 'Profile',
-        icon: Icons.person_outline,
-      ),
+      CustomBottomTabBar(context: context, currentIndex: currentIndex, pageIndex: 0, label: 'Home', icon: Icons.home_outlined),
+      CustomBottomTabBar(context: context, currentIndex: currentIndex, pageIndex: 1, label: 'My Favourites', icon: Icons.favorite_border_outlined),
+      CustomBottomTabBar(context: context, currentIndex: currentIndex, pageIndex: 2, label: 'Profile', icon: Icons.person_outline),
     ];
   }
 }
 
 class CustomBottomTabBar extends StatelessWidget {
-  const CustomBottomTabBar({
-    Key? key,
-    required this.context,
-    required this.currentIndex,
-    required this.pageIndex,
-    required this.label,
-    required this.icon,
-  }) : super(key: key);
+  const CustomBottomTabBar(
+      {Key? key, required this.context, required this.currentIndex, required this.pageIndex, required this.label, required this.icon})
+      : super(key: key);
 
   final BuildContext context;
   final int currentIndex;
@@ -156,19 +104,12 @@ class CustomBottomTabBar extends StatelessWidget {
     return Stack(
       children: [
         currentIndex == pageIndex
-            ? Container(
-                width: MediaQuery.of(context).size.width / 3,
-                height: 4,
-                color: kNavigationColor[pageIndex],
-              )
+            ? Container(width: MediaQuery.of(context).size.width / 3, height: 4, color: kNavigationColor[pageIndex])
             : Container(),
         NavigationDestination(
           icon: Icon(icon),
           label: label,
-          selectedIcon: Icon(
-            icon,
-            color: kNavigationColor[currentIndex],
-          ),
+          selectedIcon: Icon(icon, color: kNavigationColor[currentIndex]),
         ),
       ],
     );

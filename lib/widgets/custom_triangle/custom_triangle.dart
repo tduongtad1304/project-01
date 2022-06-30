@@ -78,13 +78,7 @@ class CustomTriangleState extends State<CustomTriangle> {
         child: CustomPaint(
           size: const Size(0, 0),
           painter: DrawTriangle(
-            angle: widget.angle,
-            a: widget.a,
-            b: widget.b,
-            color: widget.color,
-            sideColor: widget.sideColor,
-            sideWidth: widget.sideWidth,
-          ),
+              angle: widget.angle, a: widget.a, b: widget.b, color: widget.color, sideColor: widget.sideColor, sideWidth: widget.sideWidth),
         ),
       ),
     );

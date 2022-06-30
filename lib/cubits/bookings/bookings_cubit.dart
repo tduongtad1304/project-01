@@ -10,38 +10,38 @@ part 'bookings_state.dart';
 class BookingsCubit extends Cubit<BookingsState> with HydratedMixin {
   BookingsCubit() : super(BookingsState.init());
 
-  void createBookings(String bookingsId, String bookingsName,
-      String bookingsLocation, String bookingsDateTime) {
+  void createBookings(String bookingsId, String bookingsName, String bookingsLocation, String bookingsDateTime) {
     try {
       emit(state.copyWith(
         equipments: [
           ...state.equipments,
-          Equipments(
-              equipmentId: bookingsId,
-              equipmentName: bookingsName,
-              equipmentLocation: bookingsLocation,
-              equipmentDateTime: bookingsDateTime)
+          Equipments(equipmentId: bookingsId, equipmentName: bookingsName, equipmentLocation: bookingsLocation, equipmentDateTime: bookingsDateTime)
         ],
       ));
     } catch (e) {
-      emit(state.copyWith(error: CustomError(errMsg: e.toString())));
+      emit(
+        state.copyWith(
+          error: CustomError(
+            errMsg: e.toString(),
+          ),
+        ),
+      );
     }
   }
 
   void deleteBookings(String bookingsId) {
-    emit(state.copyWith(
-      equipments: state.equipments
-          .where((equipments) => equipments.id != bookingsId)
-          .toList(),
-    ));
+    emit(
+      state.copyWith(
+        equipments: state.equipments.where((equipments) => equipments.id != bookingsId).toList(),
+      ),
+    );
   }
 
   void toggleFavorite(String id) {
     emit(state.copyWith(
       isFavourite: !state.isFavourite,
     ));
-    final int index =
-        state.equipments.indexWhere((equipment) => equipment.id == id);
+    final int index = state.equipments.indexWhere((equipment) => equipment.id == id);
     if (index != -1) {
       emit(state.copyWith(
         equipments: state.equipments.map((items) {
@@ -52,8 +52,11 @@ class BookingsCubit extends Cubit<BookingsState> with HydratedMixin {
         }).toList(),
       ));
     } else {
-      emit(state.copyWith(
-          error: const CustomError(errMsg: 'Equipment not found')));
+      emit(
+        state.copyWith(
+          error: const CustomError(errMsg: 'Equipment not found'),
+        ),
+      );
     }
   }
 

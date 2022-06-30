@@ -11,15 +11,9 @@ class MyFavouriteEquipments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isHaveFavouriteEquipments = context
-        .watch<FavouriteBookingsCubit>()
-        .state
-        .favouriteEquipments
-        .isEmpty;
+    final isHaveFavouriteEquipments = context.watch<FavouriteBookingsCubit>().state.favouriteEquipments.isEmpty;
 
-    return isHaveFavouriteEquipments
-        ? const EquipmentsInitial()
-        : const FavouriteEquipments();
+    return isHaveFavouriteEquipments ? const EquipmentsInitial() : const FavouriteEquipments();
   }
 }
 
@@ -34,31 +28,16 @@ class EquipmentsInitial extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            'You have no favourite Equipment',
-            style: kTitlePrimary,
-          ),
+          const Text('You have no favourite Equipment', style: kTitlePrimary),
           const SizedBox(height: 17),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Click the',
-                style: kTextPrimary.copyWith(fontSize: 15),
-              ),
-              const SizedBox(
-                width: 12,
-              ),
-              SvgPicture.asset(
-                'assets/images/coolicon-heart.svg',
-              ),
-              const SizedBox(
-                width: 12,
-              ),
-              Text(
-                'to save to My Favourites',
-                style: kTextPrimary.copyWith(fontSize: 15),
-              ),
+              Text('Click the', style: kTextPrimary.copyWith(fontSize: 15)),
+              const SizedBox(width: 12),
+              SvgPicture.asset('assets/images/coolicon-heart.svg'),
+              const SizedBox(width: 12),
+              Text('to save to My Favourites', style: kTextPrimary.copyWith(fontSize: 15)),
             ],
           )
         ],
@@ -72,8 +51,7 @@ class FavouriteEquipments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favouriteEquipments =
-        context.watch<FavouriteBookingsCubit>().state.favouriteEquipments;
+    final favouriteEquipments = context.watch<FavouriteBookingsCubit>().state.favouriteEquipments;
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(left: 28.0, right: 20.0),

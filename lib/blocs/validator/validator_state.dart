@@ -16,13 +16,7 @@ class ValidatorState extends Equatable {
   });
 
   @override
-  List<Object> get props => [
-        eidInput,
-        nameInput,
-        locationInput,
-        dateTimeInput,
-        formzStatus,
-      ];
+  List<Object> get props => [eidInput, nameInput, locationInput, dateTimeInput, formzStatus];
 
   ValidatorState copyWith({
     EidInput? eidInput,

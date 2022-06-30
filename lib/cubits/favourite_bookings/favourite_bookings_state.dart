@@ -26,6 +26,9 @@ class FavouriteBookingsState extends Equatable {
     );
   }
 
+  @override
+  String toString() => 'FavouriteBookingsState(favouriteEquipments: $favouriteEquipments)';
+
   // Map<String, dynamic> toMap() {
   //   return {
   //     'favouriteEquipments': favouriteEquipments.map((x) => x.toMap()).toList(),
@@ -43,4 +46,5 @@ class FavouriteBookingsState extends Equatable {
 
   // factory FavouriteBookingsState.fromJson(String source) =>
   //     FavouriteBookingsState.fromMap(json.decode(source));
+
 }

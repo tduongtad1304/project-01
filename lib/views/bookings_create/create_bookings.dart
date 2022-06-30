@@ -14,10 +14,6 @@ class CreateBookings extends StatefulWidget {
   State<CreateBookings> createState() => _CreateBookingsState();
 }
 
-// String? bookingsId;
-// String? bookingsName;
-// String? bookingsLocation;
-// String? bookingsDateTime;
 List<String> bookingInfo = [];
 bool isValidating = false;
 
@@ -37,10 +33,7 @@ class _CreateBookingsState extends State<CreateBookings> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Color.fromARGB(255, 85, 85, 85),
-            ),
+            icon: const Icon(Icons.arrow_back_ios, color: Color.fromARGB(255, 85, 85, 85)),
             onPressed: () {
               _exit();
             }),
@@ -53,12 +46,7 @@ class _CreateBookingsState extends State<CreateBookings> {
         listener: (context, state) {
           if (state.formzStatus.isSubmissionSuccess) {
             bookingInfo.clear();
-            bookingInfo.addAll([
-              state.eidInput.value,
-              state.nameInput.value,
-              state.locationInput.value,
-              state.dateTimeInput.value
-            ]);
+            bookingInfo.addAll([state.eidInput.value, state.nameInput.value, state.locationInput.value, state.dateTimeInput.value]);
             log(bookingInfo.toList().toString());
             Navigator.of(context).pop(bookingInfo);
           }
@@ -102,9 +90,7 @@ class EidInputField extends StatelessWidget {
           errorText: state.eidInput.invalid ? 'Invalid EID' : null,
           icon: Icons.numbers,
           onChanged: (value) {
-            context.read<ValidatorBloc>().add(
-                  EidChangeEvent(eid: value),
-                );
+            context.read<ValidatorBloc>().add(EidChangeEvent(eid: value));
           },
         );
       },
@@ -127,9 +113,7 @@ class NameInputField extends StatelessWidget {
           errorText: state.nameInput.invalid ? 'Invalid name' : null,
           icon: Icons.description,
           onChanged: (value) {
-            context.read<ValidatorBloc>().add(
-                  NameChangeEvent(name: value),
-                );
+            context.read<ValidatorBloc>().add(NameChangeEvent(name: value));
           },
         );
       },
@@ -143,8 +127,7 @@ class LocationInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ValidatorBloc, ValidatorState>(
-      buildWhen: (previous, current) =>
-          previous.locationInput != current.locationInput,
+      buildWhen: (previous, current) => previous.locationInput != current.locationInput,
       builder: (context, state) {
         return CustomTextFormField(
           initialValue: state.locationInput.value,
@@ -153,9 +136,7 @@ class LocationInputField extends StatelessWidget {
           errorText: state.locationInput.invalid ? 'Invalid location' : null,
           icon: Icons.location_on,
           onChanged: (value) {
-            context.read<ValidatorBloc>().add(
-                  LocationChangeEvent(location: value),
-                );
+            context.read<ValidatorBloc>().add(LocationChangeEvent(location: value));
           },
         );
       },
@@ -169,8 +150,7 @@ class DateTimeInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ValidatorBloc, ValidatorState>(
-      buildWhen: (previous, current) =>
-          previous.dateTimeInput != current.dateTimeInput,
+      buildWhen: (previous, current) => previous.dateTimeInput != current.dateTimeInput,
       builder: (context, state) {
         return CustomTextFormField(
           initialValue: state.dateTimeInput.value,
@@ -179,9 +159,7 @@ class DateTimeInputField extends StatelessWidget {
           errorText: state.dateTimeInput.invalid ? 'Invalid date time' : null,
           icon: Icons.date_range,
           onChanged: (value) {
-            context.read<ValidatorBloc>().add(
-                  DateTimeChangeEvent(dateTime: value),
-                );
+            context.read<ValidatorBloc>().add(DateTimeChangeEvent(dateTime: value));
           },
         );
       },
@@ -195,8 +173,7 @@ class SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ValidatorBloc, ValidatorState>(
-      buildWhen: (previous, current) =>
-          previous.formzStatus != current.formzStatus,
+      buildWhen: (previous, current) => previous.formzStatus != current.formzStatus,
       builder: (context, state) {
         return SizedBox(
           height: 50,
@@ -210,15 +187,8 @@ class SubmitButton extends StatelessWidget {
                     context.read<ValidatorBloc>().add(SubmitEvent());
                   }
                 : null,
-            icon: !state.formzStatus.isSubmissionInProgress
-                ? const Icon(Icons.subdirectory_arrow_right_sharp)
-                : Container(),
-            label: Text(
-              state.formzStatus.isSubmissionInProgress
-                  ? 'Submitting....'
-                  : 'Submit',
-              style: const TextStyle(fontSize: 18),
-            ),
+            icon: !state.formzStatus.isSubmissionInProgress ? const Icon(Icons.subdirectory_arrow_right_sharp) : Container(),
+            label: Text(state.formzStatus.isSubmissionInProgress ? 'Submitting....' : 'Submit', style: const TextStyle(fontSize: 18)),
           ),
         );
       },
@@ -258,8 +228,7 @@ class CustomTextFormField extends StatelessWidget {
           errorText: errorText,
           prefixIcon: Icon(icon),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          enabledBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         ),
         onChanged: onChanged,
       ),
