@@ -34,15 +34,28 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      child: Scaffold(
-        body: Stack(children: <Widget>[
-          _buildOffstageNavigator("Home"),
-          _buildOffstageNavigator("My Favourites"),
-          _buildOffstageNavigator("Profile"),
-        ]),
-        bottomNavigationBar: _buildBottomNavigationBar(),
+    return WillPopScope(
+      onWillPop: () async {
+        final isFirstRouteInCurrentTab = !await _navigatorKeys[_currentPage]!.currentState!.maybePop();
+        if (isFirstRouteInCurrentTab) {
+          if (_currentPage != "Home") {
+            _selectTab("Home", 1);
+
+            return false;
+          }
+        }
+        return isFirstRouteInCurrentTab;
+      },
+      child: SafeArea(
+        top: false,
+        child: Scaffold(
+          body: Stack(children: <Widget>[
+            _buildOffstageNavigator("Home"),
+            _buildOffstageNavigator("My Favourites"),
+            _buildOffstageNavigator("Profile"),
+          ]),
+          bottomNavigationBar: _buildBottomNavigationBar(),
+        ),
       ),
     );
   }

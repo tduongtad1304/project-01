@@ -20,8 +20,9 @@ class EquipmentsCard extends StatefulWidget {
 class _EquipmentsCardState extends State<EquipmentsCard> {
   @override
   Widget build(BuildContext context) {
-    bool isFavourited =
-        context.watch<BookingsCubit>().state.equipments[context.watch<BookingsCubit>().state.equipments.indexOf(widget.equipments)].isFavorite;
+    bool isFavourited;
+    int index = context.watch<BookingsCubit>().state.equipments.indexOf(widget.equipments);
+    index == -1 ? isFavourited = false : isFavourited = context.watch<BookingsCubit>().state.equipments[index].isFavorite;
 
     return Container(
       padding: const EdgeInsets.only(left: 17, right: 23, top: 18.0, bottom: 16.0),

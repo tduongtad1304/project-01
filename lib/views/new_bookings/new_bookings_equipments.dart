@@ -25,14 +25,14 @@ class _NewBookingEquipmentsState extends State<NewBookingEquipments> {
           children: [
             const SizedBox(height: 25),
             Visibility(
-              visible: equipments.isNotEmpty,
+              visible: context.watch<BookingsCubit>().state.equipments.isNotEmpty,
               child: Expanded(
                 child: ListView.separated(
                     shrinkWrap: true,
-                    itemCount: equipments.length,
+                    itemCount: equipments.length, //prefer context.watch<BookingsCubit>().state.equipments[index];
                     itemBuilder: (context, index) {
                       return EquipmentsCard(
-                        equipments: equipments[index],
+                        equipments: equipments[index], //prefer context.watch<BookingsCubit>().state.equipments[index];
                       );
                     },
                     separatorBuilder: (context, index) {

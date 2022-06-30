@@ -6,6 +6,8 @@ import 'package:nsg_biolab_clone/cubits/cubits.dart';
 import 'package:nsg_biolab_clone/models/bookings.dart';
 import 'package:nsg_biolab_clone/views/views.dart';
 
+import '../../blocs/validator/validator_bloc.dart';
+
 class NewBookings extends StatefulWidget {
   const NewBookings({Key? key}) : super(key: key);
 
@@ -74,7 +76,12 @@ class _NewBookingsState extends State<NewBookings> with TickerProviderStateMixin
       ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          bookingsInfo = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateBookings()));
+          bookingsInfo = await Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => BlocProvider<ValidatorBloc>(
+              create: (context) => ValidatorBloc(),
+              child: const CreateBookings(),
+            ),
+          ));
 
           if (bookingsInfo.isEmpty) {
             return;
