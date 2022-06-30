@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nsg_biolab_clone/cubits/bookings/bookings_cubit.dart';
 import 'package:nsg_biolab_clone/models/bookings.dart';
 
@@ -34,4 +34,14 @@ class FavouriteBookingsCubit extends Cubit<FavouriteBookingsState> {
     favouriteEquipmentsSubscription.cancel();
     return super.close();
   }
+
+  // @override
+  // FavouriteBookingsState? fromJson(Map<String, dynamic> json) {
+  //   return FavouriteBookingsState.fromMap(json);
+  // }
+
+  // @override
+  // Map<String, dynamic>? toJson(FavouriteBookingsState state) {
+  //   return state.toMap();
+  // }
 }

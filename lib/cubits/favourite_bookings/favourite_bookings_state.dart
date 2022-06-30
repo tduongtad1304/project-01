@@ -9,11 +9,6 @@ class FavouriteBookingsState extends Equatable {
     // required this.favouriteMeetingRooms,
   });
 
-  factory FavouriteBookingsState.init() => const FavouriteBookingsState(
-        favouriteEquipments: [],
-        // favouriteMeetingRooms: [],
-      );
-
   @override
   List<Object> get props => [favouriteEquipments];
 
@@ -30,4 +25,22 @@ class FavouriteBookingsState extends Equatable {
       //     favouriteMeetingRooms ?? this.favouriteMeetingRooms,
     );
   }
+
+  // Map<String, dynamic> toMap() {
+  //   return {
+  //     'favouriteEquipments': favouriteEquipments.map((x) => x.toMap()).toList(),
+  //   };
+  // }
+
+  // factory FavouriteBookingsState.fromMap(Map<String, dynamic> map) {
+  //   return FavouriteBookingsState(
+  //     favouriteEquipments: List<Equipments>.from(
+  //         map['favouriteEquipments']?.map((x) => Equipments.fromMap(x))),
+  //   );
+  // }
+
+  // String toJson() => json.encode(toMap());
+
+  // factory FavouriteBookingsState.fromJson(String source) =>
+  //     FavouriteBookingsState.fromMap(json.decode(source));
 }

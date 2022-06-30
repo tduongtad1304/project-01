@@ -18,11 +18,14 @@ class MyApp extends StatelessWidget {
           create: (context) => CounterCubit(),
         ),
         BlocProvider<FavouriteBookingsCubit>(
-          create: (context) => FavouriteBookingsCubit(
-              bookingsCubit: context.read<BookingsCubit>(),
-              initialFavouriteEquipments:
-                  context.read<BookingsCubit>().state.equipments),
-        ),
+            create: (context) => FavouriteBookingsCubit(
+                bookingsCubit: context.read<BookingsCubit>(),
+                initialFavouriteEquipments: context
+                    .read<BookingsCubit>()
+                    .state
+                    .equipments
+                    .where((element) => element.isFavorite)
+                    .toList())),
         BlocProvider<ValidatorBloc>(
           create: (context) => ValidatorBloc(),
         ),

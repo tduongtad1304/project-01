@@ -13,4 +13,16 @@ class CustomError extends Equatable {
 
   @override
   bool get stringify => true;
+
+  toMap() {
+    return {
+      'errMsg': errMsg,
+    };
+  }
+
+  static fromMap(x) {
+    return CustomError(
+      errMsg: x['errMsg'],
+    );
+  }
 }

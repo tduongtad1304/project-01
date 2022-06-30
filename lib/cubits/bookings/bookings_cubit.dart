@@ -1,31 +1,14 @@
-import 'package:bloc/bloc.dart';
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nsg_biolab_clone/models/bookings.dart';
 import 'package:nsg_biolab_clone/models/custom_error.dart';
 
 part 'bookings_state.dart';
 
-class BookingsCubit extends Cubit<BookingsState> {
+class BookingsCubit extends Cubit<BookingsState> with HydratedMixin {
   BookingsCubit() : super(BookingsState.init());
-  // void loadDefaultEquipments() {
-  //   emit(state.copyWith(status: BookingsStatus.loading));
-  //   final equipments = [
-  //     Equipments(
-  //         equipmentName: 'Computer',
-  //         equipmentId: 'CPT007',
-  //         equipmentLocation: 'Vietnam',
-  //         equipmentDateTime: '2022'),
-  //     Equipments(
-  //         equipmentName: 'Laser',
-  //         equipmentId: 'LS001',
-  //         equipmentLocation: 'Vietnam',
-  //         equipmentDateTime: '2020'),
-  //   ];
-  //   emit(state.copyWith(
-  //     status: BookingsStatus.loaded,
-  //     equipments: equipments,
-  //   ));
-  // }
 
   void createBookings(String bookingsId, String bookingsName,
       String bookingsLocation, String bookingsDateTime) {
@@ -72,5 +55,15 @@ class BookingsCubit extends Cubit<BookingsState> {
       emit(state.copyWith(
           error: const CustomError(errMsg: 'Equipment not found')));
     }
+  }
+
+  @override
+  BookingsState? fromJson(Map<String, dynamic> json) {
+    return BookingsState.fromMap(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(BookingsState state) {
+    return state.toMap();
   }
 }

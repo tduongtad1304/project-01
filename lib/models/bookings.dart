@@ -53,6 +53,33 @@ class Equipments implements Bookings {
       isFavorite: isFavorite ?? this.isFavorite,
     );
   }
+
+  @override
+  String toString() {
+    return 'Equipments(id: $id, equipmentName: $equipmentName, equipmentId: $equipmentId, equipmentLocation: $equipmentLocation, equipmentDateTime: $equipmentDateTime, isFavorite: $isFavorite)';
+  }
+
+  static fromMap(x) {
+    return Equipments(
+      id: x['id'],
+      equipmentName: x['equipmentName'],
+      equipmentId: x['equipmentId'],
+      equipmentLocation: x['equipmentLocation'],
+      equipmentDateTime: x['equipmentDateTime'],
+      isFavorite: x['isFavorite'],
+    );
+  }
+
+  toMap() {
+    return {
+      'id': id,
+      'equipmentName': equipmentName,
+      'equipmentId': equipmentId,
+      'equipmentLocation': equipmentLocation,
+      'equipmentDateTime': equipmentDateTime,
+      'isFavorite': isFavorite,
+    };
+  }
 }
 
 class MeetingRooms implements Bookings {
@@ -96,6 +123,26 @@ class MeetingRooms implements Bookings {
       meetingRoomDateTime: meetingRoomDateTime ?? this.meetingRoomDateTime,
       isFavorite: isFavorite ?? this.isFavorite,
     );
+  }
+
+  static fromMap(x) {
+    return MeetingRooms(
+      id: x['id'],
+      meetingRoomName: x['meetingRoomName'],
+      meetingRoomLocation: x['meetingRoomLocation'],
+      meetingRoomDateTime: x['meetingRoomDateTime'],
+      isFavorite: x['isFavorite'],
+    );
+  }
+
+  toMap() {
+    return {
+      'id': id,
+      'meetingRoomName': meetingRoomName,
+      'meetingRoomLocation': meetingRoomLocation,
+      'meetingRoomDateTime': meetingRoomDateTime,
+      'isFavorite': isFavorite,
+    };
   }
 }
 
