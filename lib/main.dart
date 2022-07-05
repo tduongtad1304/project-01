@@ -9,6 +9,5 @@ void main() async {
   final _storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
-  HydratedBlocOverrides.runZoned(() => runApp(const MyApp()),
-      blocObserver: Observer(), storage: _storage);
+  HydratedBlocOverrides.runZoned(() => runApp(const MyApp()), blocObserver: Observer(), storage: _storage);
 }

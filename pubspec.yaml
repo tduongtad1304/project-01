@@ -29,10 +29,12 @@ environment:
 dependencies:
   bloc: ^8.0.3
   cupertino_icons: ^1.0.2
+  dio: ^4.0.6
   equatable: ^2.0.3
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_secure_storage: ^5.0.2
   flutter_svg: ^0.22.0
   formz: ^0.4.1
   hydrated_bloc: ^8.1.0

@@ -3,3 +3,4 @@ export 'create_route.dart';
 export 'equipments_card.dart';
 export 'snackbar.dart';
 export 'tab_navigator.dart';
+export 'custom_text_field.dart';

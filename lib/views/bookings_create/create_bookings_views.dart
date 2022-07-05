@@ -6,6 +6,7 @@ import 'package:nsg_biolab_clone/blocs/validator/validator_bloc.dart';
 import 'package:formz/formz.dart';
 
 import '../../constants/constants.dart';
+import '../../widgets/widgets.dart';
 
 class CreateBookings extends StatefulWidget {
   const CreateBookings({Key? key}) : super(key: key);
@@ -192,46 +193,6 @@ class SubmitButton extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class CustomTextFormField extends StatelessWidget {
-  final String initialValue;
-  final String labelText;
-  final String hintText;
-  final String? errorText;
-  final IconData icon;
-  final Function(String)? onChanged;
-
-  const CustomTextFormField({
-    Key? key,
-    required this.initialValue,
-    required this.labelText,
-    required this.hintText,
-    required this.errorText,
-    required this.icon,
-    required this.onChanged,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 60),
-      child: TextFormField(
-        initialValue: initialValue,
-        textCapitalization: TextCapitalization.words,
-        style: const TextStyle(fontSize: 18),
-        decoration: InputDecoration(
-          labelText: labelText,
-          hintText: hintText,
-          errorText: errorText,
-          prefixIcon: Icon(icon),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-        ),
-        onChanged: onChanged,
-      ),
     );
   }
 }

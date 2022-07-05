@@ -74,7 +74,9 @@ class _NewBookingsState extends State<NewBookings> with TickerProviderStateMixin
         IndexedStack(children: const [NewBookingEquipments()]),
         IndexedStack(children: const [NewBookingMeetingRoom()]),
       ]),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
+        mini: true,
         onPressed: () async {
           bookingsInfo = await Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => BlocProvider<ValidatorBloc>(
