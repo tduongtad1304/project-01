@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../blocs/login/login_bloc.dart';
+import '../repositories/login_repository.dart';
+import '../services/login_services.dart';
 import '../views/views.dart';
 
 class TabNavigator extends StatelessWidget {
@@ -21,13 +25,20 @@ class TabNavigator extends StatelessWidget {
     } else if (tabItem == "My Favourites") {
       child = const MyFavourite();
     } else if (tabItem == "Profile") {
-      child = const Profile();
+      child = RepositoryProvider(
+        create: (context) => LoginRepository(loginServices: LoginServices()),
+        child: BlocProvider<LoginBloc>(
+          create: (context) => LoginBloc(
+            loginRepository: context.read<LoginRepository>(),
+          ),
+          child: const Profile(),
+        ),
+      );
     }
     return Navigator(
       key: navigatorKey,
       onGenerateRoute: (routeSettings) {
-        return MaterialPageRoute(
-            builder: (context) => child!, maintainState: true);
+        return MaterialPageRoute(builder: (context) => child!, maintainState: true);
       },
     );
   }

@@ -12,7 +12,7 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginRepository loginRepository;
-  LoginBloc({required this.loginRepository}) : super(const LoginState()) {
+  LoginBloc({required this.loginRepository}) : super(LoginState.initial()) {
     on<EmailChanged>(_onEmailChanged);
     on<PasswordChanged>(_onPasswordChanged);
     on<Submit>(_onSubmit);
@@ -52,24 +52,30 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         await loginRepository
             .login(
-              state.email.value,
-              state.password.value,
-            )
-            .then(
-              (user) => emit(
-                const LoginState(
-                  email: EmailInput.pure(),
-                  password: PasswordInput.pure(),
-                  formzStatus: FormzStatus.pure,
-                  isSubmitting: false,
-                ),
-              ),
-            );
-        emit(state.copyWith(formzStatus: FormzStatus.submissionSuccess, isSubmitting: true));
+          state.email.value,
+          state.password.value,
+        )
+            .then((token) {
+          emit(state.copyWith(
+            email: const EmailInput.pure(),
+            password: const PasswordInput.pure(),
+            token: token,
+            error: const CustomError(errMsg: ''),
+            formzStatus: FormzStatus.submissionSuccess,
+          ));
+        });
       } on CustomError catch (e) {
         emit(state.copyWith(formzStatus: FormzStatus.submissionFailure, isSubmitting: true, error: e));
       }
     }
-    emit(state.copyWith(formzStatus: FormzStatus.submissionInProgress));
+  }
+
+  Future<bool> checkAuthorize() async {
+    final bool isAuth = await loginRepository.checkAuthorize();
+    return isAuth;
+  }
+
+  Future<void> logOut() async {
+    await loginRepository.logOut();
   }
 }

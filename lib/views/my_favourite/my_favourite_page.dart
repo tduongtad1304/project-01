@@ -47,6 +47,7 @@ class _MyFavouriteState extends State<MyFavourite> with AutomaticKeepAliveClient
           width: 62,
           height: 62,
           child: FloatingActionButton(
+            heroTag: 'my_favourite_fab',
             backgroundColor: kPrimaryButtons,
             onPressed: () {
               Navigator.of(context).push(

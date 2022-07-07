@@ -1,27 +1,35 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart' as dio;
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:nsg_biolab_clone/services/dio_error_handler.dart';
-import 'dart:convert';
 
 import '../exceptions/login_exceptions.dart';
 
 class LoginServices {
   String? token;
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
   Future<String> login(String email, String password) async {
     const api = 'https://nsg-bio.vinova.sg/api/v1.0.0/sessions/authorize';
-    final data = {'email': email, 'password': password};
-
+    var formData = FormData.fromMap({
+      'email': email,
+      'password': password,
+    });
     dio.Response response;
     try {
-      response = await dio.Dio().post(api, data: data);
+      response = await dio.Dio().post(api, data: formData);
       if (response.statusCode == 200) {
-        FlutterSecureStorage _storage = const FlutterSecureStorage();
-        final body = json.decode(response.data);
-        if (body.isEmpty) {
+        if (kDebugMode) {
+          print(response.data);
+        }
+        if (response.data == null) {
           throw LoginException('Login failed');
         }
-        await _storage.write(key: 'TOKEN', value: body['token']);
-        return body['token'] as String;
+        String token = response.data['data']['token'] as String;
+        await _storage.write(key: 'TOKEN', value: token);
+        return token;
       } else {
         throw Exception(dioErrorHandler(response));
       }
@@ -30,13 +38,23 @@ class LoginServices {
     }
   }
 
-  Future<String> getUser() async {
-    FlutterSecureStorage _storage = const FlutterSecureStorage();
+  Future<bool> checkAuthorize() async {
     token = await _storage.read(key: 'TOKEN');
-
     if (token != null) {
-      return token!;
+      await onLogin(token!);
     }
-    return token!;
+    return token != null;
+  }
+
+  Future<void> onLogin(String? token) async {
+    log('Sign in with token: $token');
+    await _storage.write(key: 'TOKEN', value: token);
+    token = token;
+  }
+
+  Future<void> logOut() async {
+    await _storage.delete(key: 'TOKEN');
+    token = null;
+    log('Delete token and Sign out');
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:nsg_biolab_clone/blocs/login/login_bloc.dart';
 import '../../constants/constants.dart';
@@ -6,8 +7,41 @@ import '/widgets/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      checkAuthorized();
+    });
+    super.initState();
+  }
+
+  Future<bool> checkAuthorized() async {
+    bool? isAuth;
+    await Future.delayed(const Duration(milliseconds: 350));
+    isAuth = await context.read<LoginBloc>().checkAuthorize();
+    if (isAuth) {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text('Login'),
+          content: Text('Please wait few seconds while we check your authorization info....'),
+        ),
+      );
+      await Future.delayed(const Duration(milliseconds: 650));
+      Navigator.of(context).pushNamedAndRemoveUntil('/mainpage', (route) => false);
+    } else {
+      return false;
+    }
+    return isAuth;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +59,7 @@ class LoginPage extends StatelessWidget {
             Navigator.of(context).pushReplacementNamed('/mainpage');
           }
           if (state.formzStatus.isSubmissionFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.error.errMsg),
-              ),
-            );
+            errorDialog(context, state.error.errMsg);
           }
         },
         child: Center(
@@ -62,7 +92,7 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 height: 50,
                 width: 150,
-                child: ElevatedButton.icon(
+                child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: kPrimaryButtons,
                   ),
@@ -71,11 +101,16 @@ class LoginPage extends StatelessWidget {
                           context.read<LoginBloc>().add(Submit());
                         }
                       : null,
-                  icon: !context.watch<LoginBloc>().state.formzStatus.isSubmissionInProgress
-                      ? const Icon(Icons.subdirectory_arrow_right_sharp)
-                      : Container(),
-                  label: Text(context.watch<LoginBloc>().state.formzStatus.isSubmissionInProgress ? 'Submitting....' : 'Submit',
-                      style: const TextStyle(fontSize: 18)),
+                  child: !context.watch<LoginBloc>().state.formzStatus.isSubmissionInProgress
+                      ? Text('Login', style: kTitlePrimary.copyWith(color: Colors.white, letterSpacing: 1))
+                      : const Center(
+                          child: SizedBox(
+                          height: 28,
+                          width: 28,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        )),
                 ),
               ),
             ],

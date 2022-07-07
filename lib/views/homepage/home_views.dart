@@ -59,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> with AutomaticKeepAliveClientMi
         width: 62,
         height: 62,
         child: FloatingActionButton(
+          heroTag: 'my_home_fab',
           backgroundColor: kPrimaryButtons,
           onPressed: () {
             Navigator.push(

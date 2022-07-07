@@ -76,6 +76,7 @@ class _NewBookingsState extends State<NewBookings> with TickerProviderStateMixin
       ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
+        heroTag: 'new_bookings_fab',
         mini: true,
         onPressed: () async {
           bookingsInfo = await Navigator.of(context).push(MaterialPageRoute(
